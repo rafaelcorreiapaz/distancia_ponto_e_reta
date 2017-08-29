@@ -2,7 +2,7 @@
 
 function retornarDistanciaEntreDoisPonto($lat1, $lon1, $lat2, $lon2)
 {
-	return 	((3958 * 3.1415926 * sqrt(($lat2 - $lat1) * ($lat2 - $lat1) + cos($lat2 / 57.29578) * cos($lat1 / 57.29578) * ($lon2 - $lon1) * ($lon2 - $lon1)) / 180) * 1.609344) * 1000;
+	return 	((3958 * 3.1415926 * sqrt(($lat2 - $lat1) * ($lat2 - $lat1) + cos($lat2 / 57.29578) * cos($lat1 / 57.29578) * ($lon2 - $lon1) * ($lon2 - $lon1)) / 180) * 1.609344);
 }
 
 function retornarAlturaDaBase($ab, $ac, $bc)
@@ -43,15 +43,28 @@ function retornaDistanciaEntrePontoEReta($a, $b, $c)
 
 }
 
-// reta
-$a['lat'] = -5.49466388888889;
-$a['lon'] = -47.4785511111111;
-$b['lat'] = -4.95144666666667;
-$b['lon'] = -47.5011422222222;
-	
-// ponto
-$c['lat'] = -5.49507166666667;
-$c['lon'] = -47.4788577777778;
+$LatLinha = "-22.904186342480042,-22.9056885413639,-22.90966138188791,-22.907902277807445";
+$xLatLinha = explode(",",$LatLinha);
 
-var_dump(retornaDistanciaEntrePontoEReta($a, $b, $c));
+$LonLinha = "-43.186912536621094,-43.191633224487305,-43.189830780029304,-43.18476676940919";
+$xLonLinha = explode(",",$LonLinha);
+
+$LatLon = "-22.906775648598042,-43.18845748901368";
+$xLatLon = explode(",",$LatLon);
+
+// ponto
+$c['lat'] = $xLatLon[0];
+$c['lon'] = $xLatLon[1];
+
+for($i = 1; $i < count($xLatLinha); $i++)
+{
+	// reta
+	$a['lat'] = $xLatLinha[$i];
+	$a['lon'] = $xLonLinha[$i];
+	$b['lat'] = $xLatLinha[$i-1];
+	$b['lon'] = $xLonLinha[$i-1];
+	echo retornaDistanciaEntrePontoEReta($a, $b, $c)*1000 . " m" . PHP_EOL;
+}
+	
+
 
