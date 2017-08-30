@@ -56,6 +56,7 @@ $xLatLon = explode(",",$LatLon);
 $c['lat'] = $xLatLon[0];
 $c['lon'] = $xLatLon[1];
 
+$arrayDistancia = [];
 for($i = 1; $i < count($xLatLinha); $i++)
 {
 	// reta
@@ -63,8 +64,10 @@ for($i = 1; $i < count($xLatLinha); $i++)
 	$a['lon'] = $xLonLinha[$i];
 	$b['lat'] = $xLatLinha[$i-1];
 	$b['lon'] = $xLonLinha[$i-1];
-	echo retornaDistanciaEntrePontoEReta($a, $b, $c)*1000 . " m" . PHP_EOL;
+	$arrayDistancia[] = retornaDistanciaEntrePontoEReta($a, $b, $c)*1000 . PHP_EOL;
 }
+
+echo min($arrayDistancia);
 	
 
 
